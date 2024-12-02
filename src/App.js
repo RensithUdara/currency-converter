@@ -10,19 +10,26 @@ function App() {
   const [conversionRate, setConversionRate] = useState(0);
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const apiKey = 'da9300077c1ce51e84396099';  // Replace with your ExchangeRate-API key
   const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`;
 
   useEffect(() => {
     // Fetch currency data on component mount
+    setLoading(true);
+    setError(null); // Reset error before new request
     axios.get(url)
       .then(response => {
         setCurrencies(Object.keys(response.data.conversion_rates));
         setLoading(false);
         setConversionRate(response.data.conversion_rates[toCurrency]);
       })
-      .catch(error => console.error('Error fetching data', error));
+      .catch(error => {
+        setLoading(false);
+        setError('Error fetching currency data. Please try again later.');
+        console.error('Error fetching data', error);
+      });
   }, [fromCurrency, toCurrency]);
 
   useEffect(() => {
@@ -50,6 +57,8 @@ function App() {
 
       {loading ? (
         <p>Loading...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
       ) : (
         <div className="converter">
           <div>
