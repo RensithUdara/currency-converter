@@ -12,7 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const apiKey = 'da9300077c1ce51e84396099';  // Replace with your ExchangeRate-API key
+  const apiKey = 'da9300077c1ce51e84396099';  
   const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`;
 
   useEffect(() => {
