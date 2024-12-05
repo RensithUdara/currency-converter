@@ -56,33 +56,38 @@ function App() {
       <h1>Currency Converter</h1>
 
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading">
+          <div className="spinner"></div>
+          <p>Loading...</p>
+        </div>
       ) : error ? (
         <p className="error">{error}</p>
       ) : (
-        <div className="converter">
-          <div>
-            <label htmlFor="fromCurrency">From: </label>
-            <select id="fromCurrency" value={fromCurrency} onChange={handleFromCurrencyChange}>
-              {currencies.map(currency => (
-                <option key={currency} value={currency}>{currency}</option>
-              ))}
-            </select>
-            <input type="number" value={amount} onChange={handleAmountChange} />
-          </div>
+        <div className="converter-card">
+          <div className="converter">
+            <div className="input-group">
+              <label htmlFor="fromCurrency">From: </label>
+              <select id="fromCurrency" value={fromCurrency} onChange={handleFromCurrencyChange}>
+                {currencies.map(currency => (
+                  <option key={currency} value={currency}>{currency}</option>
+                ))}
+              </select>
+              <input type="number" value={amount} onChange={handleAmountChange} />
+            </div>
 
-          <div>
-            <label htmlFor="toCurrency">To: </label>
-            <select id="toCurrency" value={toCurrency} onChange={handleToCurrencyChange}>
-              {currencies.map(currency => (
-                <option key={currency} value={currency}>{currency}</option>
-              ))}
-            </select>
-            <input type="number" value={convertedAmount} readOnly />
-          </div>
+            <div className="input-group">
+              <label htmlFor="toCurrency">To: </label>
+              <select id="toCurrency" value={toCurrency} onChange={handleToCurrencyChange}>
+                {currencies.map(currency => (
+                  <option key={currency} value={currency}>{currency}</option>
+                ))}
+              </select>
+              <input type="number" value={convertedAmount} readOnly />
+            </div>
 
-          <div className="rate">
-            <p>1 {fromCurrency} = {conversionRate} {toCurrency}</p>
+            <div className="rate">
+              <p>1 {fromCurrency} = {conversionRate} {toCurrency}</p>
+            </div>
           </div>
         </div>
       )}
